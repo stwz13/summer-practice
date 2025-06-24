@@ -38,3 +38,4 @@ namespace task02
             .FirstOrDefault().FacultyName;
     }
 }
+
