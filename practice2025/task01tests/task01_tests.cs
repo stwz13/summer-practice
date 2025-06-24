@@ -1,4 +1,4 @@
-using task01;
+п»їusing task01;
 using Xunit;
 
 namespace task01tests
@@ -9,7 +9,7 @@ namespace task01tests
         [Fact]
         public void IsPalindrome_ValidPalindrome_ReturnsTrue()
         {
-            string input = "А роза упала на лапу Азора";
+            string input = "Рђ СЂРѕР·Р° СѓРїР°Р»Р° РЅР° Р»Р°РїСѓ РђР·РѕСЂР°";
             Assert.True(input.IsPalindrome());
         }
 
