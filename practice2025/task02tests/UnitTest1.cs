@@ -1,4 +1,4 @@
-using Xunit;
+Ôªøusing Xunit;
 using task02;
 
 namespace task02tests
@@ -12,9 +12,9 @@ namespace task02tests
         {
             _testStudents = new List<Student>
         {
-            new() { Name = "»‚‡Ì", Faculty = "‘»“", Grades = new List<int> { 5, 4, 5 } },
-            new() { Name = "¿ÌÌ‡", Faculty = "‘»“", Grades = new List<int> { 3, 4, 3 } },
-            new() { Name = "œÂÚ", Faculty = "›ÍÓÌÓÏËÍ‡", Grades = new List<int> { 5, 5, 5 } }
+            new() { Name = "–ò–≤–∞–Ω", Faculty = "–§–ò–¢", Grades = new List<int> { 5, 4, 5 } },
+            new() { Name = "–ê–Ω–Ω–∞", Faculty = "–§–ò–¢", Grades = new List<int> { 3, 4, 3 } },
+            new() { Name = "–ü–µ—Ç—Ä", Faculty = "–≠–∫–æ–Ω–æ–º–∏–∫–∞", Grades = new List<int> { 5, 5, 5 } }
         };
             _service = new StudentService(_testStudents);
         }
@@ -22,16 +22,16 @@ namespace task02tests
         [Fact]
         public void GetStudentsByFaculty_ReturnsCorrectStudents()
         {
-            var result = _service.GetStudentsByFaculty("‘»“").ToList();
+            var result = _service.GetStudentsByFaculty("–§–ò–¢").ToList();
             Assert.Equal(2, result.Count);
-            Assert.True(result.All(s => s.Faculty == "‘»“"));
+            Assert.True(result.All(s => s.Faculty == "–§–ò–¢"));
         }
 
         [Fact]
         public void GetFacultyWithHighestAverageGrade_ReturnsCorrectFaculty()
         {
             var result = _service.GetFacultyWithHighestAverageGrade();
-            Assert.Equal("›ÍÓÌÓÏËÍ‡", result);
+            Assert.Equal("–≠–∫–æ–Ω–æ–º–∏–∫–∞", result);
         }
 
         [Fact]
@@ -50,21 +50,21 @@ namespace task02tests
 
             var arrayResult = result.ToArray();
 
-            Assert.Equal("¿ÌÌ‡", arrayResult[0].Name);
-            Assert.Equal("»‚‡Ì", arrayResult[1].Name);
-            Assert.Equal("œÂÚ", arrayResult[2].Name);
+            Assert.Equal("–ê–Ω–Ω–∞", arrayResult[0].Name);
+            Assert.Equal("–ò–≤–∞–Ω", arrayResult[1].Name);
+            Assert.Equal("–ü–µ—Ç—Ä", arrayResult[2].Name);
         }
 
         [Fact]
         public void GetStudentsGroupedByFaculty_ReturnsCorrectGroup()
         {
-            var result = _service.GetStudentsByFaculty("‘»“");
+            var result = _service.GetStudentsByFaculty("–§–ò–¢");
 
             var arrayResult = result.ToArray();
 
             Assert.Equal(2, arrayResult.Length);
-            Assert.Equal("»‚‡Ì", arrayResult[0].Name);
-            Assert.Equal("¿ÌÌ‡", arrayResult[1].Name);
+            Assert.Equal("–ò–≤–∞–Ω", arrayResult[0].Name);
+            Assert.Equal("–ê–Ω–Ω–∞", arrayResult[1].Name);
         }
     }
 }
