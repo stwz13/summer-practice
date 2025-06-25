@@ -86,6 +86,7 @@ namespace task04tests
             Assert.Equal(250, fighter.AngleArondAxis);
         }
 
+        [Fact]
         public void Cruiser_FiresCorrect()
         {
             var cruiser = new Cruiser();
@@ -94,6 +95,7 @@ namespace task04tests
             Assert.Equal(startFires - 1, cruiser.NumbeOfMissiles);
         }
 
+        [Fact]
         public void Fighter_FiresCorrect()
         {
             var fighter = new Fighter();

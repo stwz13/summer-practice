@@ -33,7 +33,7 @@ namespace task04
 
         public void Rotate(int angle) => AngleArondAxis = (AngleArondAxis + angle) % 360;
 
-        public void Fire() => Console.WriteLine("Выпущена ракета");
+        public void Fire() => NumbeOfMissiles = NumbeOfMissiles > 0 ? NumbeOfMissiles - 1 : 0;
 
     }
 
