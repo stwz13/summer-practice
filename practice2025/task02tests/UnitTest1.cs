@@ -48,11 +48,12 @@ namespace task02tests
         {
             var result = _service.GetStudentsOrderedByName();
 
-            var arrayResult = result.ToArray();
+            var listResult = result.ToList();
 
-            Assert.Equal("Анна", arrayResult[0].Name);
-            Assert.Equal("Иван", arrayResult[1].Name);
-            Assert.Equal("Петр", arrayResult[2].Name);
+            Assert.Equal(3, listResult.Count);
+            Assert.Equal("Анна", listResult[0].Name);
+            Assert.Equal("Иван", listResult[1].Name);
+            Assert.Equal("Петр", listResult[2].Name);
         }
 
         [Fact]
@@ -60,11 +61,11 @@ namespace task02tests
         {
             var result = _service.GetStudentsByFaculty("ФИТ");
 
-            var arrayResult = result.ToArray();
+            var listResult = result.ToList();
 
-            Assert.Equal(2, arrayResult.Length);
-            Assert.Equal("Иван", arrayResult[0].Name);
-            Assert.Equal("Анна", arrayResult[1].Name);
+            Assert.Equal(2, listResult.Count);
+            Assert.Equal("Иван", listResult[0].Name);
+            Assert.Equal("Анна", listResult[1].Name);
         }
     }
 }
