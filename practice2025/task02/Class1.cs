@@ -35,7 +35,7 @@ namespace task02
             => _students.GroupBy(student => student.Faculty)
             .Select(group => new { FacultyName = group.Key, FacultyAverageGrade = group.Average(student => student.Grades.Average()) })
             .OrderByDescending(faculty => faculty.FacultyAverageGrade)
-            .FirstOrDefault().FacultyName;
+            .First().FacultyName;
     }
 }
 
