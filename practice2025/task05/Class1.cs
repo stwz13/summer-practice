@@ -15,7 +15,7 @@ namespace task05
         }
 
         public IEnumerable<string> GetPublicMethods() => _type.GetMethods(BindingFlags.Public | BindingFlags.Instance).Select(method => method.Name);
-        public IEnumerable<string> GetMethodParams(string methodname) => _type.GetMethod(methodname).GetParameters().Select(param => param.Name);
+        public IEnumerable<string> GetMethodParams(string methodname) => _type.GetMethod(methodname)!.GetParameters().Select(param => param.Name)!;
 
         public IEnumerable<string> GetAllFields() => _type
             .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance)
