@@ -1,5 +1,4 @@
-﻿
-namespace task04
+﻿namespace task04
 {
     public interface ISpaceship
     {
