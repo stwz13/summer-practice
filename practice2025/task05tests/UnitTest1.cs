@@ -35,6 +35,7 @@ namespace task05tests
             var analyzer = new ClassAnalyzer(typeof(TestClass));
             var fields = analyzer.GetAllFields();
 
+            Assert.Contains("PublicField", fields);
             Assert.Contains("_privateField", fields);
         }
 
@@ -44,7 +45,7 @@ namespace task05tests
             var analyzer = new ClassAnalyzer(typeof(TestClass));
             var result = analyzer.GetMethodParams("MethodWithParams").ToList();
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
 
             Assert.Contains("param1", result);
         }
@@ -55,7 +56,7 @@ namespace task05tests
             var analyzer = new ClassAnalyzer(typeof(TestClass));
             var result = analyzer.GetProperties().ToList();
 
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.Contains("Property", result);
         }
 
