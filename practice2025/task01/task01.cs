@@ -5,12 +5,12 @@ namespace task01
 {
     public static class StringExtensions
     {
-        public static bool IsPalindrome(this string str)
+        public static bool IsPalindrome(this string input)
         {
-            if (string.IsNullOrEmpty(str)) return false;
-            var lowStr = str.Where(symb => !char.IsPunctuation(symb) && !char.IsWhiteSpace(symb)).Select(char.ToLower).ToArray();
+            if (string.IsNullOrEmpty(input)) return false;
+            var lowInput = input.Where(symb => !char.IsPunctuation(symb) && !char.IsWhiteSpace(symb)).Select(char.ToLower).ToArray();
 
-            return lowStr.SequenceEqual(lowStr.Reverse());
+            return lowInput.SequenceEqual(lowInput.Reverse());
         }
     }
 }
