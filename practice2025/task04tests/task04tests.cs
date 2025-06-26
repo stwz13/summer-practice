@@ -12,8 +12,8 @@ namespace task04tests
             var cruiser = new Cruiser();
             Assert.Equal(50, cruiser.Speed);
             Assert.Equal(100, cruiser.FirePower);
-            Assert.Equal(100, cruiser.NumbeOfMissiles);
-            Assert.Equal(0, cruiser.AngleArondAxis);
+            Assert.Equal(100, cruiser.NumberOfMissiles);
+            Assert.Equal(0, cruiser.AngleAroundAxis);
             Assert.Equal(0, cruiser.Coordinate);
         }
 
@@ -66,12 +66,12 @@ namespace task04tests
         public void Cruiser_RotatesCorrect()
         {
             var cruiser = new Cruiser();
-            int startRotate = cruiser.AngleArondAxis;
+            int startRotate = cruiser.AngleAroundAxis;
 
             cruiser.Rotate(10);
-            Assert.Equal(10, cruiser.AngleArondAxis);
+            Assert.Equal(10, cruiser.AngleAroundAxis);
             cruiser.Rotate(360);
-            Assert.Equal(10, cruiser.AngleArondAxis);
+            Assert.Equal(10, cruiser.AngleAroundAxis);
         }
 
         [Fact]
@@ -90,9 +90,9 @@ namespace task04tests
         public void Cruiser_FiresCorrect()
         {
             var cruiser = new Cruiser();
-            int startFires = cruiser.NumbeOfMissiles;
+            int startFires = cruiser.NumberOfMissiles;
             cruiser.Fire();
-            Assert.Equal(startFires - 1, cruiser.NumbeOfMissiles);
+            Assert.Equal(startFires - 1, cruiser.NumberOfMissiles);
         }
 
         [Fact]
