@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using task02;
+using System.Runtime.ExceptionServices;
 
 namespace task02tests
 {
@@ -59,13 +60,19 @@ namespace task02tests
         [Fact]
         public void GetStudentsGroupedByFaculty_ReturnsCorrectGroup()
         {
-            var result = _service.GetStudentsByFaculty("ФИТ");
+            var result = _service.GroupStudentsByFaculty();
 
-            var listResult = result.ToList();
+            Assert.Equal(2, result.Count);
 
-            Assert.Equal(2, listResult.Count);
-            Assert.Equal("Иван", listResult[0].Name);
-            Assert.Equal("Анна", listResult[1].Name);
+            var firstGroup = result["ФИТ"].Select(student => student.Name).ToList();
+            Assert.Equal(2, firstGroup.Count);
+            Assert.Contains("Иван", firstGroup);
+            Assert.Contains("Анна", firstGroup);
+
+            var secondGroup = result["Экономика"].Select(student => student.Name).ToList();
+            Assert.Single(secondGroup);
+            Assert.Contains("Петр", secondGroup);
         }
     }
 }
+
