@@ -13,6 +13,7 @@ namespace FileSystemCommands
         public static long CalculateSizeOfDirectory(string nameOfDirectory)
         {
             var currDirectory = new DirectoryInfo(nameOfDirectory);
+            if (!currDirectory.Exists) return -1;
 
             return currDirectory.GetFiles().Select(f => f.Length).Sum();
         }
@@ -33,9 +34,11 @@ namespace FileSystemCommands
             Mask = mask;
         }
 
-        public static List<FileInfo> SearchFilesWithMask(string nameOfDirectory, string mask)
+        public static List<FileInfo>? SearchFilesWithMask(string nameOfDirectory, string mask)
         {
             var currDirectory = new DirectoryInfo(nameOfDirectory);
+
+            if (!currDirectory.Exists) return null;
 
             return currDirectory.GetFiles(mask).ToList();
         }
@@ -44,4 +47,5 @@ namespace FileSystemCommands
 
     }
 }
+
 
