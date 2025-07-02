@@ -36,31 +36,27 @@ namespace task07
         public static void PrintTypeInfo(Type type)
         {
             var attributesClassDisplayName = type.GetCustomAttribute<DisplayNameAttribute>();
-            if (attributesClassDisplayName != null) Console.WriteLine($"Отображаемое имя класса {attributesClassDisplayName.DisplayName}");
-            else Console.WriteLine($"{type.Name} не поддерживает аттрибут DisplayNameAttribute");
-
+            Console.WriteLine(attributesClassDisplayName != null ? $"Отображаемое имя класса: {attributesClassDisplayName.DisplayName}" :
+                $"{type.Name} не поддерживает аттрибут DisplayNameAttribute");
 
             var attributesMethodsDisplayName = type.GetMethods()
                 .Where(method => method.GetCustomAttribute<DisplayNameAttribute>() != null)
                 .Select(method => method.Name)
                 .ToList();
-            if (attributesMethodsDisplayName.Count != 0) foreach (var attributesMethod in attributesMethodsDisplayName) Console.WriteLine(attributesMethod);
-            else Console.WriteLine("Нет методов с аттрибутом DisplayNameAttribute");
-
+            Console.WriteLine(attributesMethodsDisplayName.Count != 0 ? string.Join("\n", attributesMethodsDisplayName) : "Нет методов с аттрибутом DisplayNameAttribute");
 
             var attributesPropertiesDisplayName = type.GetProperties()
                 .Where(property => property.GetCustomAttribute<DisplayNameAttribute>() != null)
                 .Select(property => property.Name)
                 .ToList();
+            Console.WriteLine(attributesPropertiesDisplayName.Count != 0 ? string.Join("\n", attributesPropertiesDisplayName) : "Нет свойств с аттрибутом DisplayNameAttribute");
 
-            if (attributesPropertiesDisplayName.Count != 0) foreach (var attributesProperty in attributesPropertiesDisplayName) Console.WriteLine(attributesProperty);
-            else Console.WriteLine("Нет свойств с аттрибутом DisplayNameAttribute");
+            var attributesVersion = type.GetCustomAttribute<VersionAttribute>();
+            Console.WriteLine(attributesVersion != null ? $"Версия класса: {attributesVersion.Major}.{attributesVersion.Minor}" : $"Тип {type.Name} не содержит аттрибут Version");
 
-            var attributesVersion = type.GetCustomAttributes<VersionAttribute>();
-            if (attributesVersion.Any()) foreach (var attr in attributesVersion) Console.WriteLine($"Версия класса {attr.Major}.{attr.Minor}");
-            else Console.WriteLine($"Тип {type.Name} не содержит аттрибут Version");
         }
 
     }
 }
+
 
