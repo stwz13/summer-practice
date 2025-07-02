@@ -68,6 +68,7 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             string libraryPath = args[0];
+
             Assembly assembly = Assembly.LoadFrom(libraryPath);
 
             var classesOfLibrary = assembly.GetTypes();
