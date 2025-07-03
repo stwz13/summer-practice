@@ -36,31 +36,25 @@ namespace ConsoleApp
         {
             Console.WriteLine($"Имя класса: {type.FullName}\n");
 
-            var methodsOfType = type.GetMethods();
 
-            if (methodsOfType.Any())
-            {
-                Console.WriteLine("Список методов:");
-                foreach (var method in methodsOfType) PrintMethodInfo(method);
-            }
-            else Console.WriteLine("Методы отсутствуют");
+            var methodsOfType = type.GetMethods();
+            Console.WriteLine(methodsOfType.Any() ? "Список методов:" : "Методы отсутствуют");
+            foreach (var method in methodsOfType) PrintMethodInfo(method);
 
             Console.WriteLine();
 
+
             var constructorsOfType = type.GetConstructors();
-            if (constructorsOfType.Any())
-            {
-                Console.WriteLine("Список конструкторов:");
-                foreach (var constructor in constructorsOfType) PrintConstructorInfo(constructor);
-            }
-            else Console.WriteLine("Конструкторы отсутствуют");
+            Console.WriteLine(constructorsOfType.Any() ? "Список конструкторов:" : "Конструкторы отсутствуют");
+            foreach (var constructor in constructorsOfType) PrintConstructorInfo(constructor);
+
+            Console.WriteLine();
 
             var attributesOfType = type.GetCustomAttributes(true);
 
             Console.WriteLine(attributesOfType.Any() ? "Список атрибутов:\n" +
             string.Join("\n", attributesOfType.Select(attribute => $"Имя атрибута {attribute.ToString}"))
             : "Атрибуты отсутствуют");
-
 
             Console.WriteLine();
 
