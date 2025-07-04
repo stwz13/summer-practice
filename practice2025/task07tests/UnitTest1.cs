@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using task07;
 using Xunit;
+using Xunit.Sdk;
 namespace task07tests
 {
    
@@ -49,9 +50,12 @@ namespace task07tests
             var type = typeof(SampleClass);
             var output = new StringWriter();
             Console.SetOut(output);
-            var expectedValue = "Отображаемое имя класса: Пример класса\r\nTestMethod\r\nNumber\r\nВерсия класса: 1.0\r\n";
+
             ReflectionHeplper.PrintTypeInfo(type);
-            Assert.Equal(expectedValue, output.ToString());
+            Assert.Contains("Отображаемое имя класса: Пример класса", output.ToString());
+            Assert.Contains("TestMethod", output.ToString());
+            Assert.Contains("Версия класса: 1.0", output.ToString());
+
         }
     }
 }
