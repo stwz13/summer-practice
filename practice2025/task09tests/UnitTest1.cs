@@ -1,4 +1,4 @@
-
+п»ї
 using ConsoleApp;
 namespace task09tests
 {
@@ -21,8 +21,8 @@ namespace task09tests
             var testMethodInf = typeof(TestClass).GetMethod("TestMethod")!;
             ConsolePrinter.PrintMethodInfo(testMethodInf);
             Console.WriteLine(output.ToString());
-            Assert.Contains("Имя метода: TestMethod", output.ToString());
-            Assert.Contains("Имя параметра - param1, тип параметра - System.Int32", output.ToString());
+            Assert.Contains("РРјСЏ РјРµС‚РѕРґР°: TestMethod", output.ToString());
+            Assert.Contains("РРјСЏ РїР°СЂР°РјРµС‚СЂР° - param1, С‚РёРї РїР°СЂР°РјРµС‚СЂР° - System.Int32", output.ToString());
         }
         [Fact]
         public void PrintConstructInfo_PrintsCorrectInformation()
@@ -32,8 +32,8 @@ namespace task09tests
             var testConstInf = typeof(TestClass).GetConstructor(new[] {typeof(int)})!;
             ConsolePrinter.PrintConstructorInfo(testConstInf);
 
-            Assert.Contains("Имя конструктора: .ctor", output.ToString());
-            Assert.Contains("Имя параметра - field, тип параметра - System.Int32", output.ToString());
+            Assert.Contains("РРјСЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°: .ctor", output.ToString());
+            Assert.Contains("РРјСЏ РїР°СЂР°РјРµС‚СЂР° - field, С‚РёРї РїР°СЂР°РјРµС‚СЂР° - System.Int32", output.ToString());
 
         }
         [Fact]
@@ -43,11 +43,11 @@ namespace task09tests
             Console.SetOut(output);
 
             ConsolePrinter.PrintTypeInfo(typeof(TestClass));
-            Assert.Contains($"Имя класса: {typeof(TestClass).FullName}", output.ToString());
-            Assert.Contains("Имя метода: TestMethod", output.ToString());
-            Assert.Contains("Имя параметра - param1, тип параметра - System.Int32", output.ToString());
-            Assert.Contains("Имя конструктора: .ctor", output.ToString());
-            Assert.Contains("Имя параметра - field, тип параметра - System.Int32", output.ToString());
+            Assert.Contains($"РРјСЏ РєР»Р°СЃСЃР°: {typeof(TestClass).FullName}", output.ToString());
+            Assert.Contains("РРјСЏ РјРµС‚РѕРґР°: TestMethod", output.ToString());
+            Assert.Contains("РРјСЏ РїР°СЂР°РјРµС‚СЂР° - param1, С‚РёРї РїР°СЂР°РјРµС‚СЂР° - System.Int32", output.ToString());
+            Assert.Contains("РРјСЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°: .ctor", output.ToString());
+            Assert.Contains("РРјСЏ РїР°СЂР°РјРµС‚СЂР° - field, С‚РёРї РїР°СЂР°РјРµС‚СЂР° - System.Int32", output.ToString());
         }
         [Fact]
         public void Main_PrintAllClasses()
@@ -64,8 +64,8 @@ namespace task09tests
 
             ConsolePrinter.Main(args);
 
-            Assert.Contains("Имя класса: task07.DisplayNameAttribute", output.ToString());
-            Assert.Contains("Имя класса: task07.VersionAttribute", output.ToString());
+            Assert.Contains("РРјСЏ РєР»Р°СЃСЃР°: task07.DisplayNameAttribute", output.ToString());
+            Assert.Contains("РРјСЏ РєР»Р°СЃСЃР°: task07.VersionAttribute", output.ToString());
         }
 
     } 
