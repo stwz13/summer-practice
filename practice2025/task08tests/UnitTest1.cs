@@ -1,4 +1,4 @@
-using FileSystemCommands;
+п»їusing FileSystemCommands;
 using CommandRun;
 
 namespace task08tests
@@ -55,7 +55,7 @@ namespace task08tests
             var infOfTestDir = new DirectoryInfo(testDir);
             long sizeOfTestDir = infOfTestDir.GetFiles().Select(f => f.Length).Sum();
 
-            Assert.Contains("Размер директории: " + sizeOfTestDir, output.ToString());
+            Assert.Contains("Р Р°Р·РјРµСЂ РґРёСЂРµРєС‚РѕСЂРёРё: " + sizeOfTestDir, output.ToString());
             Assert.Contains("test1", output.ToString());
             Assert.Contains("test2", output.ToString());
         }
