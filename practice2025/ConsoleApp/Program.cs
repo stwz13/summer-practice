@@ -59,7 +59,7 @@ namespace ConsoleApp
             Console.WriteLine();
 
         }
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             string libraryPath = args[0];
 
