@@ -6,9 +6,11 @@ namespace Command
     {
         static void Main(string[] args)
         {
+            string currDirectory = Directory.GetCurrentDirectory();
+            string solutionDirectory = Path.GetFullPath(Path.Combine(currDirectory, "..", "..", "..", ".."));
+            string searchDllFile = Directory.GetFiles(solutionDirectory, "FileSystemCommands.dll", SearchOption.AllDirectories)[0];
 
-            string searchDllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FileSystemCommands.dll");
-            Assembly assembly = Assembly.LoadFrom(searchDllPath);
+            Assembly assembly = Assembly.LoadFrom(searchDllFile);
 
             Type typeDirectorySize = assembly.GetType("FileSystemCommands.DirectorySizeCommand")!;
             ICommand directorySizeInstance = (ICommand)Activator.CreateInstance(typeDirectorySize, args[0])!;
