@@ -42,6 +42,17 @@ namespace task07tests
             Assert.Equal(1, attribute.Major);
             Assert.Equal(0, attribute.Minor);
         }
+
+        [Fact]
+        public void PrintTypeInfo_WritesCorrectInfo()
+        {
+            var type = typeof(SampleClass);
+            var output = new StringWriter();
+            Console.SetOut(output);
+            var expectedValue = "Отображаемое имя класса: Пример класса\r\nTestMethod\r\nNumber\r\nВерсия класса: 1.0\r\n";
+            ReflectionHeplper.PrintTypeInfo(type);
+            Assert.Equal(expectedValue, output.ToString());
+        }
     }
 }
 
