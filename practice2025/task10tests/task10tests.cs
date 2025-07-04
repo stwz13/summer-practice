@@ -16,7 +16,9 @@ namespace task10tests
             Console.SetOut(outPut);
 
 
-            var newSystem = new ExecuteTheSystemOfPlugins(solutionDirectory);
+            var newSystem = new SystemOfPlugins(solutionDirectory);
+
+            newSystem.ExecuteAllCommands();
 
 
             Assert.Contains("Plugin1 command executed", outPut.ToString());
@@ -31,9 +33,9 @@ namespace task10tests
             string currDirectory = Directory.GetCurrentDirectory();
             string solutionDirectory = Path.GetFullPath(Path.Combine(currDirectory, "..", "..", "..", ".."));
 
-            var newSystem = new ExecuteTheSystemOfPlugins(solutionDirectory);
+            var newSystem = new SystemOfPlugins(solutionDirectory);
 
-            var listOfPlagins = newSystem.SortedPlugins;
+            var listOfPlagins = newSystem.GetSortedGrafOfPlagins();
 
             Assert.Equal(typeof(Plugin1), listOfPlagins[0]);
             Assert.Equal(typeof(Plugin2), listOfPlagins[1]);

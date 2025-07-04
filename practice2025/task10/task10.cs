@@ -4,15 +4,15 @@ using System.Reflection;
 
 namespace task10
 {
-    public class ExecuteTheSystemOfPlugins
+    public class SystemOfPlugins
     {
         public string LibrariesDirect {  get; private set; }
 
-        public Dictionary<Type, Type[]> DependenciesOfPlagins { get; private set; }
-        public List<Type> SortedPlugins { get; private set; }
+        private Dictionary<Type, Type[]> DependenciesOfPlagins { get; set; }
 
-        public ExecuteTheSystemOfPlugins(string librariesDirect)
+        public SystemOfPlugins(string librariesDirect)
         {
+
             LibrariesDirect = librariesDirect;
 
             var loadedAssemblies = new HashSet<string>();
@@ -30,14 +30,17 @@ namespace task10
                 .ToDictionary(type => type,
                 type => type.GetCustomAttribute<PluginLoadAttribute>()!.PlaginsDepends);
 
-            SortedPlugins = SortGrafOfPlagins(DependenciesOfPlagins);
+        }
+        public void ExecuteAllCommands()
+        {
+            var SortedPlugins = GetSortedGrafOfPlagins();
 
             SortedPlugins.Select(command => (IPlugin)Activator.CreateInstance(command)!).ToList().ForEach(plugin => plugin.Execute());
         }
 
-        public static List<Type> SortGrafOfPlagins(Dictionary<Type, Type[]> grafOfDepend)
+        public List<Type> GetSortedGrafOfPlagins()
         {
-            var grafCopy = new Dictionary<Type, Type[]>(grafOfDepend);
+            var grafCopy = new Dictionary<Type, Type[]>(DependenciesOfPlagins);
 
             List<Type> sortedVertex = new List<Type>();
 
