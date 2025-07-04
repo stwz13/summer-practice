@@ -43,7 +43,7 @@ namespace FileSystemCommands
             return currDirectory.GetFiles(mask).ToList();
         }
 
-        public void Execute() => FilesWithMask = SearchFilesWithMask(NameOfDirectory, Mask);
+        public void Execute() => FilesWithMask = SearchFilesWithMask(NameOfDirectory, Mask)!;
 
     }
 }
