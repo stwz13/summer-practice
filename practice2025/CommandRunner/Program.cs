@@ -11,12 +11,12 @@ namespace Command
             Assembly assembly = Assembly.LoadFrom(searchDllPath);
 
             Type typeDirectorySize = assembly.GetType("FileSystemCommands.DirectorySizeCommand")!;
-            ICommand directorySizeInstance = (ICommand)Activator.CreateInstance(typeDirectorySize, Directory.GetCurrentDirectory())!;
+            ICommand directorySizeInstance = (ICommand)Activator.CreateInstance(typeDirectorySize, args[0])!;
 
             directorySizeInstance.Execute();
 
             Type typeSearchFiles = assembly.GetType("FileSystemCommands.FindFilesCommand")!;
-            ICommand searchInstance = (ICommand)Activator.CreateInstance(typeSearchFiles, Directory.GetCurrentDirectory(), "*.cs")!;
+            ICommand searchInstance = (ICommand)Activator.CreateInstance(typeSearchFiles, Directory.GetCurrentDirectory(), args[1])!;
 
             searchInstance.Execute();
 
