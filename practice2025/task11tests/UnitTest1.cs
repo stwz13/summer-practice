@@ -1,4 +1,4 @@
-using CodeGenerator;
+п»їusing CodeGenerator;
 using ConsoleApp;
 
 namespace task11tests
@@ -83,7 +83,7 @@ namespace task11tests
 
             CalculateApp.Main(new string[] { "1", "***", "5" });
 
-            Assert.Contains("Введена некорректная операция.", output.ToString());
+            Assert.Contains("Р’РІРµРґРµРЅР° РЅРµРєРѕСЂСЂРµРєС‚РЅР°СЏ РѕРїРµСЂР°С†РёСЏ.", output.ToString());
 
         }
 
