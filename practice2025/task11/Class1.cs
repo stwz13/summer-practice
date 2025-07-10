@@ -44,7 +44,9 @@ namespace CodeGenerator
 
            var memoryStream = new MemoryStream();
            var emitMemoryStream = comp.Emit(memoryStream);
-            memoryStream.Seek(0, SeekOrigin.Begin);
+           memoryStream.Seek(0, SeekOrigin.Begin);
+
+            memoryStream.Dispose(); 
 
             Assembly assemblyWithCalculator = Assembly.Load(memoryStream.ToArray());
 
