@@ -21,7 +21,11 @@ namespace CodeGenerator
                     public int Add(int a, int b) => a + b;
                     public int Minus(int a, int b) => a - b;
                     public int Mul(int a, int b) => a * b;
-                    public int Div(int a, int b) => a / b;
+                    public int Div(int a, int b) 
+                    {
+                        if (b == 0) throw new System.DivideByZeroException(""Деление на 0"");
+                        return a / b;
+                    }
                 }";
 
 

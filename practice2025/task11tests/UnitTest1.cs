@@ -6,7 +6,7 @@ namespace task11tests
     public class CalculatorGenericTest
     {
         [Fact]
-        public void Calculator_AddsCorrect()
+        public void Calculator_AddWorksCorrect()
         {
             Type calculatorType = CalculatorGenerator.GenerateCalculatorClass();
             ICalculator calculator = (ICalculator)Activator.CreateInstance(calculatorType)!;
@@ -15,7 +15,7 @@ namespace task11tests
         }
 
         [Fact]
-        public void Calculator_MultsCorrect()
+        public void Calculator_MultWorksCorrect()
         {
             Type calculatorType = CalculatorGenerator.GenerateCalculatorClass();
             ICalculator calculator = (ICalculator)Activator.CreateInstance(calculatorType)!;
@@ -24,12 +24,31 @@ namespace task11tests
         }
 
         [Fact]
-        public void Calculator_MinusCorrect()
+        public void Calculator_MinusWorksCorrect()
+        {
+            Type calculatorType = CalculatorGenerator.GenerateCalculatorClass();
+            ICalculator calculator = (ICalculator)Activator.CreateInstance(calculatorType)!;
+
+            Assert.Equal(3, calculator.Minus(5, 2));
+        }
+
+        [Fact]
+        public void Calculator_DivWorksCorrect()
         {
             Type calculatorType = CalculatorGenerator.GenerateCalculatorClass();
             ICalculator calculator = (ICalculator)Activator.CreateInstance(calculatorType)!;
 
             Assert.Equal(2, calculator.Div(6, 3));
+        }
+        [Fact]
+        public void Calculator_ReturnExceptionWithDivByZero()
+        {
+            Type calculatorType = CalculatorGenerator.GenerateCalculatorClass();
+            ICalculator calculator = (ICalculator)Activator.CreateInstance(calculatorType)!;
+
+            var exception = Assert.Throws<Exception>(() => calculator.Div(5, 0));
+
+            Assert.Contains("Деление на 0", exception.Message);
         }
         [Fact]
         public void CalculatorApp_PrintsAddOperationMainTest()
