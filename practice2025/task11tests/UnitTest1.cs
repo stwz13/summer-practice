@@ -46,7 +46,7 @@ namespace task11tests
             Type calculatorType = CalculatorGenerator.GenerateCalculatorClass();
             ICalculator calculator = (ICalculator)Activator.CreateInstance(calculatorType)!;
 
-            var exception = Assert.Throws<Exception>(() => calculator.Div(5, 0));
+            var exception = Assert.Throws<DivideByZeroException>(() => calculator.Div(5, 0));
 
             Assert.Contains("Деление на 0", exception.Message);
         }
