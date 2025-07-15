@@ -12,3 +12,8 @@ jobs:
       - name: Tests
         run: dotnet test ./practice2025/practice2025.sln
 
+      - name: build solution
+        run: dotnet build ./practice2025/practice2025.sln --configuration Release --no-restore
+
+      - name: run console app
+        run: dotnet run --project ./practice2025/task15/task15.csproj --configuration Release --no-build
