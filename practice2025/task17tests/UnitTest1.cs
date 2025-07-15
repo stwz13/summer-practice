@@ -1,4 +1,4 @@
-using ServerThreadSystem;
+п»їusing ServerThreadSystem;
 namespace task17tests
 {
     public class ServerThreadSystemTests
@@ -46,7 +46,7 @@ namespace task17tests
             serverThread.AddCommand(new HardStopCommand(serverThread));
             serverThread.AddCommand(new TestCommand(serverThread, "TestCommand"));
 
-            Assert.Contains("Сервер не запущен", output.ToString());
+            Assert.Contains("РЎРµСЂРІРµСЂ РЅРµ Р·Р°РїСѓС‰РµРЅ", output.ToString());
         }
         [Fact]
         public void Server_ReturnsExceptionWithWrongCommand()
@@ -60,7 +60,7 @@ namespace task17tests
 
             firstServerThread.AddCommand(new HardStopCommand(secondServerThread));
 ;
-            Assert.Contains("Команда не может быть вызвана для текущего потока", output.ToString());   
+            Assert.Contains("РљРѕРјР°РЅРґР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РІС‹Р·РІР°РЅР° РґР»СЏ С‚РµРєСѓС‰РµРіРѕ РїРѕС‚РѕРєР°", output.ToString());   
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace task17tests
 
 
             Assert.Contains("command 1", output.ToString());
-            Assert.Contains("Команда не может быть вызвана для текущего потока", output.ToString());
+            Assert.Contains("РљРѕРјР°РЅРґР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РІС‹Р·РІР°РЅР° РґР»СЏ С‚РµРєСѓС‰РµРіРѕ РїРѕС‚РѕРєР°", output.ToString());
             Assert.Contains("command 3", output.ToString());
 
         }
