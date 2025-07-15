@@ -10,29 +10,22 @@ namespace task14
             double length = (b - a) / threadsnumber;
 
             object locker = new object();
-            var barrier = new Barrier(threadsnumber + 1);
+            List<Task> tasks = new List<Task>();
 
             for (int i = 0; i < threadsnumber; i++)
             {
                 double begin = a + i * length;
                 double end = (i == threadsnumber - 1) ? b : begin + length;
-               
-                Thread thread = new Thread(_ =>
+                
+                Task newTask = Task.Run(() =>
                 {
-                    lock (locker)
-                    {
-                        result += TrapezoidMethod(begin, end, function, step);
-                    }
-
-                    barrier.SignalAndWait();
+                    double currIntegral = TrapezoidMethod(begin, end, function, step);
+                    lock (locker)  result += currIntegral;
                 });
-
-                thread.Start();
+                tasks.Add(newTask);
             }
 
-            barrier.SignalAndWait();
-            barrier.Dispose();
-
+            Task.WaitAll(tasks.ToArray());
             return result;
         }
         public static double TrapezoidMethod(double a, double b, Func<double, double> function, double step)
