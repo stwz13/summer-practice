@@ -15,7 +15,7 @@ namespace FileSystemCommands
             var currDirectory = new DirectoryInfo(nameOfDirectory);
             if (!currDirectory.Exists) return -1;
 
-            return currDirectory.GetFiles().Select(f => f.Length).Sum();
+            return currDirectory.GetFiles().Select(f => f.Length).Sum() + currDirectory.GetDirectories().Sum(directory => CalculateSizeOfDirectory(directory.FullName));
         }
 
         public void Execute() => SizeOfDirectory = CalculateSizeOfDirectory(NameOfDirectory);
@@ -40,7 +40,11 @@ namespace FileSystemCommands
 
             if (!currDirectory.Exists) return null;
 
-            return currDirectory.GetFiles(mask).ToList();
+            var currDirectoryFiles =  currDirectory.GetFiles(mask).ToList();
+
+            var subDirictoriesFiles = currDirectory.GetDirectories().SelectMany(directory => SearchFilesWithMask(directory.FullName, mask)!).ToList();
+
+            return currDirectoryFiles.Concat(subDirictoriesFiles).ToList();
         }
 
         public void Execute() => FilesWithMask = SearchFilesWithMask(NameOfDirectory, Mask)!;
