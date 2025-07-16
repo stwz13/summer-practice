@@ -74,7 +74,7 @@ namespace task17tests
             Assert.False(serverThread.IsWorking);
         }
         [Fact]
-        public void Server_CompleteAllCommandWithSoftStop()
+        public void Server_CompletesAllCommandWithSoftStop()
         {
             var output = new StringWriter();
             Console.SetOut(output);
@@ -96,7 +96,7 @@ namespace task17tests
 
         }
         [Fact]
-        public void Server_CompleteAllCommandWithSoftStop1()
+        public void Server_CompletesOnlyItsOwnCommands()
         {
             var output = new StringWriter();
             Console.SetOut(output);
@@ -110,6 +110,7 @@ namespace task17tests
             firstServerThread.AddCommand(new TestCommand(secondServerThread, "command 2"));
             firstServerThread.AddCommand(new TestCommand(firstServerThread, "command 3"));
 
+            firstServerThread.AddCommand(new SoftStopCommand(firstServerThread));
 
             Thread.Sleep(10);
 
