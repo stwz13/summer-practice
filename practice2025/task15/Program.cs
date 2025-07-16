@@ -14,16 +14,26 @@ namespace task15
             var steps = new List<double> { 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6 };
 
             double accuracy = 1e-4;
-            double optStep = 0;
+            double optStep = steps.Max();
             double exactIntegralValue = 0;
+            double optTime = double.MaxValue;
 
             foreach (double step in steps)
             {
+                var timeChecker = new Stopwatch();
+                timeChecker.Start();
+
                 double integral = DefiniteIntegral.TrapezoidMethod(-100, 100, SIN, step);
 
+                timeChecker.Stop();
+
                 double currAccuracy = Math.Abs(exactIntegralValue - integral);
-                optStep = currAccuracy < accuracy ? Math.Max(step, optStep) : optStep;
-               
+                double currTime = timeChecker.Elapsed.TotalNanoseconds;
+                if (currAccuracy < accuracy && currTime < optTime)
+                {
+                    optStep = Math.Min(step, optStep);
+                    optTime = currTime;
+                }
             }
 
 
