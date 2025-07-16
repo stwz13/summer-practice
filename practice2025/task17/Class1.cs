@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using Scheduler;
 
 namespace ServerThreadSystem
 {
@@ -7,6 +8,8 @@ namespace ServerThreadSystem
         public ServerThread ServerThread { get; }
 
     }
+    public interface IServerThreadLongCommand : IServerThreadCommand, ILongCommand;
+
     public class HardStopCommand : IServerThreadCommand
     {
         public ServerThread ServerThread {  get; private set; }
@@ -47,6 +50,7 @@ namespace ServerThreadSystem
         public Thread Thread { get; }
 
         public BlockingCollection<IServerThreadCommand> Commands { get; private set; } = new BlockingCollection<IServerThreadCommand>();
+        public IScheduler Scheduler { get; private set; } = new RoundRobinScheduler();
         public bool IsWorking { get; internal set; } = false;
         public bool SoftStop { get; internal set; } = false;
         public IExceptionHandler ExceptionHandler { get; private set; } = new DefaultExceptionHandler();
@@ -60,16 +64,34 @@ namespace ServerThreadSystem
 
         private void Work()
         {
-            while (IsWorking && !(Commands.Count == 0 && SoftStop))
+            while (IsWorking && !(Commands.Count == 0 && SoftStop && !Scheduler.HasCommand()))
             {
-                IServerThreadCommand currCommand = Commands.Take();
-                try
+
+                if (Commands.TryTake(out var currCommand))
                 {
-                    currCommand.Execute();
+                    try
+                    {
+                        if (currCommand is IServerThreadLongCommand longCurrCommand) Scheduler.Add(currCommand);
+                        else currCommand.Execute();
+                    }
+                    catch (Exception ex)
+                    {
+                        ExceptionHandler.HandleException(currCommand, ex);
+                    }
                 }
-                catch (Exception ex)
+
+                if (Scheduler.HasCommand())
                 {
-                    ExceptionHandler.HandleException(currCommand, ex);
+                    var schedulerCurrCommand = Scheduler.Select();
+                    if (schedulerCurrCommand == null) continue;
+                    try
+                    {
+                        schedulerCurrCommand.Execute();
+                    }
+                    catch (Exception ex)
+                    {
+                        ExceptionHandler.HandleException(schedulerCurrCommand, ex);
+                    }
                 }
 
             }

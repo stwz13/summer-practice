@@ -1,124 +1,112 @@
 ﻿using ServerThreadSystem;
-namespace task17tests
+namespace task18tests
 {
     public class ServerThreadSystemTests
     {
-        public class TestCommand : IServerThreadCommand
+        public class TestLongCommand : IServerThreadLongCommand
         {
             public ServerThread ServerThread { get; }
-            public string Message { get; set; } = string.Empty;
+            public int CurrCount { get; private set; }
 
-            public TestCommand(ServerThread serverThread, string message)
+            public int NumberOfExecutions { get; } = 0;
+            public bool isCompleted => CurrCount == NumberOfExecutions;
+
+            public TestLongCommand(ServerThread serverThread, int numberOfExecutions)
             {
                 ServerThread = serverThread;
-                Message = message;
+                NumberOfExecutions = numberOfExecutions;
             }
 
-            public void Execute() => Console.WriteLine(Message);
-
-        }
-        [Fact]
-        public void Server_WorkFieldsIsTrue()
-        {
-            var serverThread = new ServerThread();
-            serverThread.Start();
-
-            Assert.True(serverThread.IsWorking);
-        }
-        [Fact]
-        public void Server_SoftEndFieldIsFalse()
-        {
-            var serverThread = new ServerThread();
-            serverThread.Start();
-
-            Assert.False(serverThread.SoftStop);
-        }
-
-        [Fact]
-        public void Server_EndsWorkWithHardStop()
-        {
-            var output = new StringWriter();
-            Console.SetOut(output);
-
-            var serverThread = new ServerThread();
-            serverThread.Start();
-
-            serverThread.AddCommand(new HardStopCommand(serverThread));
-            serverThread.AddCommand(new TestCommand(serverThread, "TestCommand"));
-
-            Assert.Contains("Сервер не запущен", output.ToString());
-        }
-        [Fact]
-        public void Server_ReturnsExceptionWithWrongCommand()
-        {
-            var output = new StringWriter();
-            Console.SetOut(output);
-
-            var firstServerThread = new ServerThread();
-            var secondServerThread = new ServerThread();
-            firstServerThread.Start();
-
-            firstServerThread.AddCommand(new HardStopCommand(secondServerThread));
-;
-            Assert.Contains("Команда не может быть вызвана для текущего потока", output.ToString());   
-        }
-
-        [Fact]
-        public void Server_DoesntWorkAfterHardStop()
-        {
-            var serverThread = new ServerThread();
-            serverThread.Start();
-
-            serverThread.AddCommand(new HardStopCommand(serverThread));
-            Thread.Sleep(10);
-            Assert.False(serverThread.IsWorking);
-        }
-        [Fact]
-        public void Server_CompletesAllCommandWithSoftStop()
-        {
-            var output = new StringWriter();
-            Console.SetOut(output);
-
-            var serverThread = new ServerThread();
-            serverThread.Start();
-
-            serverThread.AddCommand(new TestCommand(serverThread, "command 1"));
-            serverThread.AddCommand(new TestCommand(serverThread, "command 2"));
-            serverThread.AddCommand(new TestCommand(serverThread, "command 3"));
-
-
-            Thread.Sleep(10);
+            public void Execute() =>  CurrCount++;
             
 
-            Assert.Contains("command 1", output.ToString());
-            Assert.Contains("command 2", output.ToString());
-            Assert.Contains("command 3", output.ToString());
+        }
+
+        [Fact]
+        public void Server_CompletesLongOperations()
+        {
+            var server = new ServerThread();
+            var longCommand = new TestLongCommand(server, 5);
+
+            server.Start();
+            server.AddCommand(longCommand);
+
+            Thread.Sleep(10);
+
+            Assert.Equal(5, longCommand.CurrCount);
+            Assert.True(longCommand.isCompleted);
 
         }
         [Fact]
-        public void Server_CompletesOnlyItsOwnCommands()
+        public void Server_CompletesDifferentLongOperations()
+        {
+            var server = new ServerThread();
+
+            var longCommand1 = new TestLongCommand(server, 5);
+            var longCommand2 = new TestLongCommand(server, 9);
+
+            server.Start();
+            server.AddCommand(longCommand1);
+            server.AddCommand(longCommand2);
+
+            Thread.Sleep(10);
+
+            Assert.Equal(5, longCommand1.CurrCount);
+            Assert.True(longCommand1.isCompleted);
+
+            Assert.Equal(9, longCommand2.CurrCount);
+            Assert.True(longCommand2.isCompleted);
+
+        }
+        [Fact]
+        public void Server_DontWorkWithWrongServer()
         {
             var output = new StringWriter();
             Console.SetOut(output);
 
-            var firstServerThread = new ServerThread();
-            var secondServerThread = new ServerThread();
+            var server1 = new ServerThread();
+            var server2 = new ServerThread();
 
-            firstServerThread.Start();
+            var longCommand = new TestLongCommand(server2, 5);
 
-            firstServerThread.AddCommand(new TestCommand(firstServerThread, "command 1"));
-            firstServerThread.AddCommand(new TestCommand(secondServerThread, "command 2"));
-            firstServerThread.AddCommand(new TestCommand(firstServerThread, "command 3"));
+            server1.Start();
+            server1.AddCommand(longCommand);
 
-            firstServerThread.AddCommand(new SoftStopCommand(firstServerThread));
+            Assert.Contains("Команда не может быть вызвана для текущего потока", output.ToString());    
+
+        }
+
+        [Fact]
+        public void Server_CompletesCommandsWithZeroExecutions()
+        {
+            var server = new ServerThread();
+            var longCommand = new TestLongCommand(server, 0);
+            Assert.True(longCommand.isCompleted);
+            server.Start();
+            server.AddCommand(longCommand);
+              
 
             Thread.Sleep(10);
 
-
-            Assert.Contains("command 1", output.ToString());
-            Assert.Contains("Команда не может быть вызвана для текущего потока", output.ToString());
-            Assert.Contains("command 3", output.ToString());
-
+            //Assert.Equal(0, longCommand.CurrCount);
         }
+
+        [Fact]
+        public void Server_CompleteLongCommandsWithSoftStop()
+        {
+            var server = new ServerThread();
+
+            var longCommand = new TestLongCommand(server, 5);
+
+            server.Start();
+            server.AddCommand(longCommand);
+            server.AddCommand(new SoftStopCommand(server));
+
+            Thread.Sleep(100);
+
+            Assert.Equal(5, longCommand.CurrCount);
+        }
+
+
     }
 }

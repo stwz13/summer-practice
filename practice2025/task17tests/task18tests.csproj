@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommandLib\CommandLib.csproj" />
-    <ProjectReference Include="..\task17\task17.csproj" />
+    <ProjectReference Include="..\task17\ServerThreadSystem.csproj" />
   </ItemGroup>
 
   <ItemGroup>
