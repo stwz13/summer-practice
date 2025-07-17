@@ -20,10 +20,7 @@ public class Program
     public class TestCommandWithThreadName : TestCommand, IServerThreadLongCommand
     {
         public ServerThread ServerThread { get; private set; }
-        public TestCommandWithThreadName(int id, ServerThread server) : base(id)
-        {
-            ServerThread = server;
-        }
+        public TestCommandWithThreadName(int id, ServerThread server) : base(id) => ServerThread = server;
         public bool isCompleted  => counter == 3;
 
     }
@@ -38,7 +35,7 @@ public class Program
             server.AddCommand(new TestCommandWithThreadName(i, server));
         }
 
-        Thread.Sleep(10);
+        Thread.Sleep(1000);
 
         server.AddCommand(new HardStopCommand(server)); 
     }
