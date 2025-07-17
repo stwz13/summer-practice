@@ -88,7 +88,7 @@ namespace task18tests
 
             Thread.Sleep(10);
 
-            //Assert.Equal(0, longCommand.CurrCount);
+            Assert.Equal(0, longCommand.CurrCount);
         }
 
         [Fact]
