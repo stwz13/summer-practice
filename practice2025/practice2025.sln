@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandLib", "CommandLib\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scheduler", "task18\Scheduler.csproj", "{587017D7-CA48-41B3-9008-6B9CDF1B47BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCommandWIthHardStop", "TestCommandWIthHardStop\TestCommandWIthHardStop.csproj", "{962EDADB-8A0B-4FF5-8607-8DB3F2399CD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{587017D7-CA48-41B3-9008-6B9CDF1B47BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{587017D7-CA48-41B3-9008-6B9CDF1B47BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{587017D7-CA48-41B3-9008-6B9CDF1B47BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962EDADB-8A0B-4FF5-8607-8DB3F2399CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962EDADB-8A0B-4FF5-8607-8DB3F2399CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962EDADB-8A0B-4FF5-8607-8DB3F2399CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962EDADB-8A0B-4FF5-8607-8DB3F2399CD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
