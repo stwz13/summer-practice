@@ -24,7 +24,7 @@ public class Program
         public bool isCompleted  => counter == 3;
 
     }
-    static void Main()
+    public static void Main()
     {
         var server = new ServerThread();
 
