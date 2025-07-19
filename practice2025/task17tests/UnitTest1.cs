@@ -46,7 +46,7 @@ namespace task17tests
             serverThread.AddCommand(new HardStopCommand(serverThread));
             serverThread.AddCommand(new TestCommand(serverThread, "TestCommand"));
 
-            Assert.Contains("Сервер не запущен", output.ToString());
+            Assert.Contains("Поток не запущен", output.ToString());
         }
         [Fact]
         public void Server_ReturnsExceptionWithWrongCommand()
