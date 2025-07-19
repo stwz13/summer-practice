@@ -107,7 +107,7 @@ namespace ServerThreadSystem
 
         public void AddCommand(IServerThreadCommand command)
         {
-            if (!IsWorking) ExceptionHandler.HandleException(command, new Exception("Сервер не запущен"));
+            if (!IsWorking) ExceptionHandler.HandleException(command, new Exception("Поток не запущен"));
             if (command.ServerThread != this) ExceptionHandler.HandleException(command, new Exception("Команда не может быть вызвана для текущего потока"));
 
             Commands.Add(command);
